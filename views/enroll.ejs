@@ -1,0 +1,38 @@
+<%-include('header.ejs')%>
+
+<form action="/enrollProc" method="post">
+   <ul style="line-height: 2em;">
+       <li>학생이름 : <input type="text" name="name" required></li>
+       <li>주민번호 : <input type="text" name="resident_no" size="10" maxlength="6" required> - <input type="password" name="resident_no1" size="10" maxlength="7" required></li>
+       <li>주소 : <input type="text" name="address"></li>
+       <li>학부모 연락처 : <input type="text" name="pr_phone" oninput="phoneAutoHyphen(this)" maxlength="13" placeholder="휴대 전화번호" required></li>
+       <li>출석교회 : <input type="text" name="church"></li>
+       <li>출석교회 연락처 : <input type="text" name="ch_phone" oninput="localAutoHyphen(this)" maxlength="13" placeholder="지역 전화번호" autofocus></li>
+       <li>기타<br><textarea name="memo" cols="40" rows="4"></textarea></li>
+       <li>입학을 위한 서약서<br>
+          - 예배의 출석 : 출석교회를 정하여 주일예배와 특별새벽기도회에 참석하겠습니다.<br>
+          - 미디어 차단 : 자녀가 20세가 되기 전까지 인터넷이 되는 핸드폰, 컴퓨터, TV 등의 미디어를 차단하겠습니다.
+                    (필요시 담임교사의 허락을 받아야 합니다.)<br>
+          - 과외학습 금지 : 예체능을 제외하고 학교 밖에서 이루어지는 사교육은 일체 금지 하겠습니다.<br>
+          - 재정지원 중단 : 자녀를 독립된 하나님의 사람으로 세우기 위해서 대학 진학시 첫 학기 등록금 외에 모든 재정 지원을 중단하겠습니다.<br>
+          - 취침시간 : 월~금요일까지 자녀의 9시 이전 취침을 준수하겠습니다.<br>
+          - 학교생활지도 : 교훈, 책망, 바르게 함, 의로 교육함의 원칙 하에 학생을 지도하는 교사를 존중하며 체벌시 교사와 학부모가 연계하여 성경적 원칙에 따르겠습니다.<br>
+          - 아침자율학습 참여 : 초등 5학년부터는  아침자율학습에 참석하겠습니다.<br>
+          - 학부모 교육 : 학교에서 매달 시행하는 학부모 교육에 참석하겠습니다.<br>
+          
+       </li> 
+       <a style="font-weight: bold; color:blue">학부모와 학생의 서약서 동의여부 : <select name="agree" required>
+                       <option value=""></option>
+                       <option value="동의합니다">동의합니다.</option>
+                       <option value="동의하지 않습니다">동의하지 않습니다.</option>
+                       </select>
+                    </a>
+       <button style="background-color: bisque; height: 40px; font-size: 24px; border-radius: 8px;">입학 지원하기</button>
+
+   </ul>
+
+ </form>   
+
+
+
+<%-include('footer.ejs')%>

@@ -1,0 +1,34 @@
+    <footer>
+<hr>        
+    <a style="padding-left: 10px; font-family: 'Jua'; font-size: 13px; color:brown">내 교회를 세우리니 음부의 권세가 이기지 못하리라 (마태복음 16:18)</a><br>
+    <a style="padding-left: 10px; font-family: 'Jua'; font-size: 10px;">홈페이지: cas.re.kr 입학상담: 010-4418-5222 주소: 인천 서구 장고개로 280번길 8   </a>
+    </footer>
+
+
+    <script>
+
+
+        const localAutoHyphen = (target) => {
+              target.value = target.value
+             .replace(/[^0-9]/g, '')
+             .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+        }
+        const phoneAutoHyphen = (target) => {
+             target.value = target.value
+             .replace(/[^0-9]/g, '')
+             .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
+        }
+
+
+        const toggleBtn = document.querySelector('.navbar__toggleBtn');
+        const menu = document.querySelector('.navbar__menu');
+        const links = document.querySelector('.navbar__links');
+        
+        toggleBtn.addEventListener('click', () => {
+            menu.classList.toggle('active');
+            links.classList.toggle('active');
+        })    
+    </script>
+
+</body>
+</html>
