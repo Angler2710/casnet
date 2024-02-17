@@ -9,20 +9,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-    <title>Nav bar</title>
+    <title>Christian Accelerated School</title>
 
     <style>
         body {
-            margin: 0;
-            
+            margin: 0;   
         }
-        
         a {
             text-decoration: none;
             color: black;
             font-size: 20px;
         }
-        
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -31,19 +28,14 @@
             padding: 4px 6px;
             font-family: 'Jua';
         }
-        
         .navbar__logo {
-           
-            color: violet;
-            
+            color: violet;   
         }
-        
         .navbar__menu {
             display: flex;
             list-style: none;
             padding-left: 0;
         }
-        
         .navbar__menu li {
             padding: 4px 12px;
         }
@@ -51,18 +43,15 @@
             background-color: grey;
             border-radius: 4px;
         }
-        
         .navbar__links {
             list-style: none;
             padding-left: 0;
             color: teal;
             display: flex;
         }
-        
         .navbar__links li {
             padding: 8px 12px;
         }
-        
         .navbar__toggleBtn {
             display: none;
             position: absolute;
@@ -105,42 +94,33 @@
 </head>
 
 <body>
-        <header class="navbar">
-            
+    <header class="navbar">   
            <div>
-               <img src="/cas_logo.jpg" style="max-width:6.7rem; height:auto; vertical-align: top; padding-left: 0.2rem; border-radius: 4px;">
-                   
-                <div>
+               <img src="/cas_logo.jpg" style="max-width:6.7rem; height:auto; vertical-align: top; padding-left: 0.2rem; border-radius: 4px;"> 
+                
+               <div>
                     <span style="color:black; font-size: 16px; -webkit-text-stroke: 0.5px orange; padding-left: 0.2rem; vertical-align: top;">크리스천 미래학교</span>
                 </div>  
            </div>
-                           
-        <ul class="navbar__menu">
-            <!--<li><form action="/loginProc" method="post">
-                   <ul>
-                       <input type="text" id="id" name="member_id" size=5 placeholder="아이디" style="border:0px;" required>
-                       <input type="password" id="pw" name="pw" size=4 placeholder="비번" style="border:0px;" required>
-                       <button style="background-color: bisque; border:0px; outline:0px">로그인</button>
-                   </ul>
-                </form>  
-            </li>-->
-            <li><a style="color:blue; font-size: 12px;"> 
-                <% if(member_id){ %>
-                <%=name%>님 환영합니다
-                  <a href="/logout" style="color:brown; font-size: 14px;">로그아웃</a>
-                <% }else{ %>
-                    <form action="/loginProc" method="post">
-                        <ul><a href ="/"></a>
-                            <input type="text" id="id" name="member_id" size=5 placeholder="아이디" style="border:0px;" required>
-                            <input type="password" id="pw" name="pw" size=4 placeholder="비번" style="border:0px;" required>
-                            <button style="background-color: bisque; border:0px; outline:0px">로그인</button>
                             
-                        </ul>
-                     </form>  
-
-                    
-                <% } %>
-            </a></li>
+        <ul class="navbar__menu">
+            
+            <li style="color:blue; font-size: 12px; text-align: center;"> 
+                <% if(member_id){ %>
+                    <%=name%>님 환영합니다 
+                    <a href="/logout" style="color:brown; font-size: 14px;">로그아웃</a>
+                <% }else{ %>     
+                <form action="/loginProc" method="post">
+                    <ul><a href ="/"></a>
+                        <input type="text" id="id" name="member_id" size=5 placeholder="아이디" style="border:0px;" required>
+                        <input type="password" id="pw" name="pw" size=4 placeholder="비번" style="border:0px;" required>
+                        <input type="submit" value="로그인" style="background-color: bisque; border:0px; outline:0px">
+                    </ul>
+                </form>
+                
+                <%}%>
+            </li> 
+        
             <li><a href="/">: 홈</a></li>
             <li><a href="/medit">말씀묵상</a></li>
             <li><a href="/enroll">입학지원</a></li>
@@ -148,7 +128,7 @@
             <li><a href="/goalcard">골카드</a></li>
             <li><a href="/balance">재정</a></li>
 
-            <li><a href="/interce">중보기도</a></li>
+            <li><a href="/interces">중보기도</a></li>
             <li><a href="/counsel">상담</a></li>
             <li><a href="/transcript">성적처리</a></li>
             <li><a href="/attend">출석체크</a></li>
@@ -162,7 +142,5 @@
         </ul>
 
         <a href="#" class="navbar__toggleBtn"><i class="fas fa-bars"></i></a>
-                     
         <hr>
- 
-        </header>
+    </header>

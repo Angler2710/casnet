@@ -4,6 +4,7 @@ const app = express()
 const port = 3000
 var bodyParser = require('body-parser')
 var session = require('express-session')
+var MySQLStore = require('express-mysql-session')(session);
 require('dotenv').config()
 
 const mysql = require('mysql2')
@@ -16,7 +17,7 @@ app.set('views','./views')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(__dirname + '/public'))
-app.use(session({ secret: 'cas', cookie: { maxAge: 60000 }, resave:true, saveUninitialized:true,}))
+app.use(session({ secret: 'john1703', cookie: { maxAge: 60000 }, resave:false, saveUninitialized:false,}))
 app.use((req, res, next) => {
   res.locals.member_id=""
   res.locals.name=""
@@ -31,7 +32,7 @@ app.get('/', (req, res) => {
   console.log(req.session.enroll);
   res.render('index')
 })
-app.post('/loginproc', (req, res) => {
+app.post('/loginproc', async (req, res) => {
   const member_id = req.body.member_id;
   const pw = req.body.pw;
   var sql = `select * from enroll where member_id=? and pw=?`
@@ -41,9 +42,12 @@ app.post('/loginproc', (req, res) => {
     if(result.length==0){
       res.send("<script> alert('아이디와 비번을 확인해 주세요!'); location.href='/';</script>");
     }else{
-    console.log(result[0]);
-    req.session.enroll = result[0]
-    res.send("<script> alert('로그인 되었습니다.!'); location.href='/';</script>");
+      console.log(result[0]);
+      req.session.enroll = result[0];
+      
+        res.send("<script> alert('로그인 되었습니다.!'); location.href='/';</script>");
+     
+      
     }
   })  
 })
@@ -67,18 +71,42 @@ app.post('/meditProc', (req, res) => {
 })
 app.get('/meditlist', (req, res) => {
   const member_id = req.session.enroll.member_id;
+  const position = req.session.enroll.position;
+if(position=="administrator"){
+  var sql = `select idx,name,bible_v,title,memo from medit order by regdate desc `
+  connection.query(sql, function (err, results, fields) {
+      if (err) throw err
+      res.render('meditlist', { lists: results })
+
+})
+}else{
   var sql = `select idx,bible_v,title,memo from medit where member_id='${member_id}' order by regdate desc `
   connection.query(sql, function (err, results, fields) {
       if (err) throw err
       res.render('meditlist', { lists: results })
-    })  
 })
+}
+})  
 app.get('/meditdelete', (req, res) => {
   var idx = req.query.idx
   var sql = `delete from medit where idx='${idx}'`
   connection.query(sql, function (err, result) {
      if(err) throw err;
      res.send("<script> alert('삭제되었습니다!'); location.href = '/meditlist' </script>")
+  })
+})
+
+app.post('/meditupdate', (req, res) => {
+  const position = req.body.position;
+  const idx = req.body.idx;
+  const title = req.body.title_;
+  const bible_v = req.body.bible_v_;
+  const memo = req.body.memo_;
+  var sql = `update medit set title=?, bible_v=?, memo=?  where idx=? `
+  var values =[title,bible_v,memo]
+  connection.query(sql, function (err, result) {
+     if(err) throw err;
+     res.send("<script> alert('수정되었습니다!'); location.href = '/meditlist' </script>")
   })
 })
 app.get('/goalcard', (req, res) => {
@@ -113,14 +141,15 @@ app.post('/enrollProc', (req, res) => {
   const resident_no = req.body.resident_no + req.body.resident_no1;
   const member_id = req.body.resident_no + req.body.resident_no1;
   const address = req.body.address;
+  const email = req.body.email;
   const pr_phone = req.body.pr_phone;
   const church = req.body.church;
   const ch_phone = req.body.ch_phone;
   const memo = req.body.memo;
   const agree = req.body.agree;
   const pw = req.body.resident_no1;
-  var sql = `insert into enroll(name,resident_no,member_id,address,pr_phone,church,ch_phone,memo,agree,pw) 
-             values('${name}','${resident_no}','${member_id}','${address}','${pr_phone}','${church}','${ch_phone}','${memo}','${agree}','${pw}')`
+  var sql = `insert into enroll(name,resident_no,member_id,address,email,pr_phone,church,ch_phone,memo,agree,pw) 
+             values('${name}','${resident_no}','${member_id}','${address}','${email}','${pr_phone}','${church}','${ch_phone}','${memo}','${agree}','${pw}')`
   connection.query(sql, function (err, result){
        if(err) throw err;
          console.log('삽입하였습니다!');
@@ -138,7 +167,14 @@ app.get('/enrolllist', (req, res) => {
     }  
     }
   )})
-
+  app.get('/enrolldelete', (req, res) => {
+    var idx = req.query.idx
+    var sql = `delete from enroll where idx='${idx}'`
+    connection.query(sql, function (err, result) {
+       if(err) throw err;
+       res.send("<script> alert('삭제되었습니다!'); location.href = '/enrolllist' </script>")
+    })
+  })
 app.get('/logout', (req, res) => {
   req.session.enroll = null;
   res.send("<script> alert('로그아웃'); location.href='/';</script>")
